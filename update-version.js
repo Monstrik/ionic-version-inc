@@ -105,7 +105,7 @@ function gitTag(version) {
 // console.log(`stderr: ${cm.stderr.toString()}`);
 // console.log(`stdout: ${cm.stdout.toString()}`);
   console.log(' - Git tag finished');
-  // gitPush(version);
+  gitPush(version);
 }
 
 function gitStatus() {
