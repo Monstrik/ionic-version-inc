@@ -1,14 +1,11 @@
 {
-  "name": "npmver",
-  "version": "2.2.27",
+  "name": "ionic-ver",
+  "version": "2.2.22",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "inc": "node update-version.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "inc": "node update-version.js"
   },
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
     "xml2js": "^0.4.19"
   }
