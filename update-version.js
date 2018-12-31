@@ -91,7 +91,7 @@ function gitCommit(version) {
 // console.log(`stderr: ${cm.stderr.toString()}`);
 // console.log(`stdout: ${cm.stdout.toString()}`);
   console.log(' - Git commit finished');
-  gitPush(version);
+  // gitPush(version);
 }
 
 function gitStatus() {
@@ -167,7 +167,7 @@ fs.readFile('config.xml', 'utf8', (err, data) => {
         console.log('Version incremented in ver.json to %s', version);
 
         console.log(' - Version incrementation finished');
-        // gitCommit(version);
+        gitCommit(version);
       });
     });
 
