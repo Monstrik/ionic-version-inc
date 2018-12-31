@@ -5,7 +5,7 @@
 function npmVersionPatch() {
   console.log(' - Running npmVersionPatch...');
   const cmString = 'npm';
-  const params = ['version', "patch"];
+  const params = ['--no-git-tag-version','version', "patch"];
   const {spawnSync} = require('child_process');
   const cm = spawnSync(cmString, params);
 
