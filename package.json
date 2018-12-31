@@ -1,0 +1,15 @@
+{
+  "name": "npmver",
+  "version": "2.2.14",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "inc": "node update-version.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "xml2js": "^0.4.19"
+  }
+}
