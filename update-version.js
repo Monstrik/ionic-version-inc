@@ -145,13 +145,12 @@ fs.readFile('config.xml', 'utf8', (err, data) => {
       return process.exit(14);
     }
     const obj = result;
-    console.log('Version from config', obj['widget']['$']['version']);
+    console.log('previous version from config', obj['widget']['$']['version']);
     obj['widget']['$']['version'] = version;
 
     // Build XML from JS Obj
     const builder = new xml2js.Builder();
     const xml = builder.buildObject(obj);
-
     // Write config.xml
     fs.writeFile('config.xml', xml, function (err) {
       if (err) {
