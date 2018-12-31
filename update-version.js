@@ -80,10 +80,9 @@ function gitPull() {
 }
 
 function gitCommit(version) {
-  const commitMessage = '"Version:' + version + '"';
-  console.log(' - Running git commit . -m ' + commitMessage);
+  console.log(' - Running git commit . -m ' + version);
   const cmString = 'git';
-  const params = ['commit', '.', '-m', commitMessage];
+  const params = ['commit', '.', '-m', version];
   const {spawnSync} = require('child_process'),
     cm = spawnSync(cmString, params);
   if (cm.stderr) console.error(cm.stderr.toString());
