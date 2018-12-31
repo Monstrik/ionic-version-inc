@@ -95,7 +95,7 @@ function gitCommit(version) {
 
 function gitTag(version) {
 
-  console.log(' - Running git tag +v'+ version + ' -am ' + version);
+  console.log(' - Running git tag v'+ version + ' -am ' + version);
   const cmString = 'git';
   const params = ['tag', 'v'+ version, '-am', version];
   const {spawnSync} = require('child_process'),
