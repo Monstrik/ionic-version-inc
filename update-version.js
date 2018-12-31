@@ -134,59 +134,67 @@ function gitStatus() {
   }
 }
 
+function ionicVersionUpdate(version){
+  console.log(' - Running ionicVersionUpdate');
+  const fs = require('fs');
+  const xml2js = require('xml2js');
+
+// Read config.xml
+  fs.readFile('config.xml', 'utf8', (err, data) => {
+    if (err) {
+      console.log(err);
+      return process.exit(13);
+    }
+    xml2js.parseString(data, function (err, result) {
+      if (err) {
+        console.log(err);
+        return process.exit(14);
+      }
+      const obj = result;
+      console.log('previous version from config', obj['widget']['$']['version']);
+      obj['widget']['$']['version'] = version;
+
+      // Build XML from JS Obj
+      const builder = new xml2js.Builder();
+      const xml = builder.buildObject(obj);
+      // Write config.xml
+      fs.writeFile('config.xml', xml, function (err) {
+        if (err) {
+          console.log(err);
+          return process.exit(15);
+        }
+        console.log('Version incremented in config.xml to %s', version);
+
+        fs.writeFile('./src/app/ver.json', JSON.stringify({"version": version}, null, 2), function (err) {
+          if (err) {
+            console.log(err);
+            return process.exit(16);
+          }
+          console.log('Version incremented in ver.json to %s', version);
+
+          console.log(' - Version incrementation finished');
+          gitCommit(version);
+        });
+      });
+
+
+    });
+  });
+
+
+
+}
+
+
+
+
 if (!gitStatus()) process.exit(100);
-// if (!gitPull()) process.exit(110);
+if (!gitPull()) process.exit(110);
 if (!npmVersionPatch()) process.exit(120);
 let version = getVersionFromPkg();
 if (version !== null) {
   console.log('VersionFromPkg is:', version);
+  ionicVersionUpdate(version)
 }
-
-
-console.log(' - Running Version incrementation');
-const fs = require('fs');
-const xml2js = require('xml2js');
-
-// Read config.xml
-fs.readFile('config.xml', 'utf8', (err, data) => {
-  if (err) {
-    console.log(err);
-    return process.exit(13);
-  }
-  xml2js.parseString(data, function (err, result) {
-    if (err) {
-      console.log(err);
-      return process.exit(14);
-    }
-    const obj = result;
-    console.log('previous version from config', obj['widget']['$']['version']);
-    obj['widget']['$']['version'] = version;
-
-    // Build XML from JS Obj
-    const builder = new xml2js.Builder();
-    const xml = builder.buildObject(obj);
-    // Write config.xml
-    fs.writeFile('config.xml', xml, function (err) {
-      if (err) {
-        console.log(err);
-        return process.exit(15);
-      }
-      console.log('Version incremented in config.xml to %s', version);
-
-      fs.writeFile('./src/app/ver.json', JSON.stringify({"version": version}, null, 2), function (err) {
-        if (err) {
-          console.log(err);
-          return process.exit(16);
-        }
-        console.log('Version incremented in ver.json to %s', version);
-
-        console.log(' - Version incrementation finished');
-        gitCommit(version);
-      });
-    });
-
-
-  });
-});
 
 
