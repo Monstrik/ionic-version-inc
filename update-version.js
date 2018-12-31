@@ -91,8 +91,26 @@ function gitCommit(version) {
 // console.log(`stderr: ${cm.stderr.toString()}`);
 // console.log(`stdout: ${cm.stdout.toString()}`);
   console.log(' - Git commit finished');
+  gitTag(version);
+}
+
+function gitTag(version) {
+
+  console.log(' - Running git tag +v'+ version + '-am' + version);
+  const cmString = 'git';
+  const params = ['tag', 'v'+ version, '-am', version];
+  const {spawnSync} = require('child_process'),
+      cm = spawnSync(cmString, params);
+  if (cm.stderr) console.error(cm.stderr.toString());
+  if (cm.stdout) console.log(cm.stdout.toString());
+// console.log(`stderr: ${cm.stderr.toString()}`);
+// console.log(`stdout: ${cm.stdout.toString()}`);
+  console.log(' - Git tag finished');
   // gitPush(version);
 }
+
+
+git [ 'tag', 'v2.2.21', '-am', '2.2.21' ]
 
 function gitStatus() {
   console.log(' - Running git status...');
