@@ -109,9 +109,6 @@ function gitTag(version) {
   // gitPush(version);
 }
 
-
-git [ 'tag', 'v2.2.21', '-am', '2.2.21' ]
-
 function gitStatus() {
   console.log(' - Running git status...');
   const cmString = 'git';
